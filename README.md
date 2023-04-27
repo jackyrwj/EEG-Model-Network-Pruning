@@ -1,6 +1,5 @@
-
-
 # Model compression on the EEG model
+
 ![python](https://img.shields.io/badge/python-3.8-red)
 ![torch](https://img.shields.io/badge/torch-1.10.1-green)
 ![torcheeg](https://img.shields.io/badge/torcheeg-1.0.6-orange)
@@ -10,11 +9,7 @@
 
 This is the implementation of our paper: Wenjie Rao, Sheng-hua Zhong "EEG Model Compression by Network Pruning for Emotion Recognition", accepted as a regular paper on *International Joint Conference on Neural Networks (IJCNN)*
 
-
-
 > With the development of deep learning on EEG-related tasks, the complexity of learning models has gradually increased. Unfortunately, the insufficient amount of EEG data limits the performance of complex models. Thus, model compression becomes an option to be seriously considered. So far, in EEG-related tasks, although some models used lightweight means such as separable convolution in their models, no existing work has directly attempted to compress the EEG model. In this paper, we try to investigate the state-of-the-art network pruning methods on commonly used EEG models for the emotion recognition task.  In this work, we make several surprising observations that contradict common beliefs. Training a pruned model from scratch outperforms fine-tuning a pruned model with inherited weights, which means that the pruned structure itself is more important than the inherited weights. We can ignore the entire pruning pipeline and train the network from scratch using the predefined network architecture. We substantially reduce the computational resource overhead of the model while maintaining accuracy. In the best case, we achieve a 62.3\% reduction in model size and a 64.3\% reduction in computing operations without accuracy loss.
-
-
 
 # Prepare the python virtual environment
 
@@ -59,6 +54,43 @@ $ python3 examples_fbccnn_fine-tuned.py
 ```
 
 We provide two recovery methods: fine-tune and scratch.
+
+# Four pruning methods
+
+***LFP***
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/process.iodraw-1.iodraw-1.png) ***SFP***
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/sft.iodraw-1.png) ***NSFP***
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/slimming.iodraw-1.iodraw-1.png) ***UWMP***
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/UWP.png)
+
+# Visualization results
+
+### Layer Pruning Sensitivity
+
+Different layers in the EEG model have different sensitivities to pruning. Pruning particular sensitive layers may result in a substantial loss of accuracy and are unrecoverable. Sensitivity analysis can be used to formulate pruning strategies to avoid excessive accuracy loss.
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/Layer_sensitivity.png)
+
+The pruning ratio is an essential parameter to determine the effectiveness of pruning. Too high a ratio will be destructive to the model, while too low a ratio can only save limited resources. We test the accuracy of TSception under various pruning ratios for two datasets.
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/Pruning_ratio.png)
+
+### Resource Saving
+
+The efficiency of computational resource saving is an essential metric to evaluate a pruning algorithm. We compare the highest resource savings achieved by the four
+pruning methods without accuracy loss.
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/resourse_saving.png)
+
+### Accuracy Comparison
+
+We compare the accuracy of network pruning and SOTA for three EEG models. As shown in Table, by comparing fine-tuned and scratched in columns 2-5.
+
+![](https://raw.githubusercontent.com/jackyrwj/picb/master/Accuracy.png) 
 
 # Dataset
 
@@ -201,56 +233,10 @@ for i, (train_dataset, val_dataset) in enumerate(k_fold.split(dataset)):
     print("Done!")
 ```
 
-# Four pruning methods
-
-***LFP***
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/process.iodraw-1.iodraw-1.png)
-***SFP***
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/sft.iodraw-1.png)
-***NSFP***
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/slimming.iodraw-1.iodraw-1.png)
-***UWMP***
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/UWP.png)
-
-# Visualization results
-
-### Layer Pruning Sensitivity
-
-Different layers in the EEG model have different sensitivities to pruning. Pruning particular sensitive layers may result in a substantial loss of accuracy and are unrecoverable. Sensitivity analysis can be used to formulate pruning strategies to avoid excessive accuracy loss.
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/Layer_sensitivity.png)
-
-
-
-The pruning ratio is an essential parameter to determine the effectiveness of pruning. Too high a ratio will be destructive to the model, while too low a ratio can only save limited resources. We test the accuracy of TSception under various pruning ratios for two datasets. 
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/Pruning_ratio.png)
-
-### Resource Saving
-
-The efficiency of computational resource saving is an essential metric to evaluate a pruning algorithm. We compare the highest resource savings achieved by the four
-pruning methods without accuracy loss.
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/resourse_saving.png)
-
-### Accuracy Comparison
-
-We compare the accuracy of network pruning and SOTA for three EEG models. As shown in Table, by comparing fine-tuned and scratched in columns 2-5.
-
-![](https://raw.githubusercontent.com/jackyrwj/picb/master/Accuracy.png)
-
 # Acknowledgment
 
 The author would like to thank ShenZhen University, National Natural Science Foundation of China
 
-
-
 ## License
 
 TorchEEG has a MIT license, as found in the [LICENSE](https://github.com/jackyrwj/EEG-Model-Network-Pruning/blob/main/LICENSE) file.
-
-

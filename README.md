@@ -1,6 +1,12 @@
 
 
 # Model compression on the EEG model
+![python](https://img.shields.io/badge/python-3.8-red)
+![torch](https://img.shields.io/badge/torch-1.10.1-green)
+![torcheeg](https://img.shields.io/badge/torcheeg-1.0.6-orange)
+![mne](https://img.shields.io/badge/mne-1.0.3-blue)
+![scipy](https://img.shields.io/badge/scipy-1.8.1-yellowgreen)
+![pandas](https://img.shields.io/badge/pandas-1.4.2-brightgreen)
 
 This is the implementation of our paper: Wenjie Rao, Sheng-hua Zhong "EEG Model Compression by Network Pruning for Emotion Recognition", accepted as a regular paper on *International Joint Conference on Neural Networks (IJCNN)*
 
